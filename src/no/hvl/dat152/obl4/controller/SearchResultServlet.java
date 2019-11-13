@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+
 import no.hvl.dat152.obl4.database.SearchItem;
 import no.hvl.dat152.obl4.database.SearchItemDAO;
 import no.hvl.dat152.obl4.dictionary.DictionaryDAO;
@@ -33,9 +35,9 @@ public class SearchResultServlet extends HttpServlet {
 				dicturl = DEFAULT_DICT_URL;
 			}
 
-			String user = Validator.validString(request.getParameter("user"));
-			String searchkey = Validator.validString(request
-					.getParameter("searchkey"));
+			String user = escapeHtml(Validator.validString(request.getParameter("user")));
+			String searchkey = escapeHtml(Validator.validString(request
+					.getParameter("searchkey")));
 
 			Timestamp datetime = new Timestamp(new Date().getTime());
 			SearchItem search = new SearchItem(datetime, user, searchkey);

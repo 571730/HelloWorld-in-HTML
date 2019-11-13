@@ -46,7 +46,7 @@ public class UpdatePasswordServlet extends HttpServlet {
 				successfulPasswordUpdate = userDAO.updateUserPassword(user.getUsername(), passwordnew);
 				
 				if (successfulPasswordUpdate) {
-					
+					response.addHeader("X-XSS-Protection", "1; mode=block");
 					response.sendRedirect("mydetails");
 
 				} else {

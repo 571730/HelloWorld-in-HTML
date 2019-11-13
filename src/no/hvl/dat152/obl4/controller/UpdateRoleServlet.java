@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+
 import no.hvl.dat152.obl4.database.AppUser;
 import no.hvl.dat152.obl4.database.AppUserDAO;
 import no.hvl.dat152.obl4.util.Role;
@@ -29,10 +31,10 @@ public class UpdateRoleServlet extends HttpServlet {
 
 		boolean successfulRoleUpdate = false;
 		
-		String username = Validator.validString(request
-				.getParameter("username"));
-		String newrole = Validator.validString(request
-				.getParameter("role"));
+		String username = escapeHtml(Validator.validString(request
+				.getParameter("username")));
+		String newrole = escapeHtml(Validator.validString(request
+				.getParameter("role")));
 		
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		
