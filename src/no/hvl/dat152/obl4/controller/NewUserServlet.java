@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.derby.iapi.sql.dictionary.SystemColumn;
+
+
 import no.hvl.dat152.obl4.database.AppUser;
 import no.hvl.dat152.obl4.database.AppUserDAO;
 import no.hvl.dat152.obl4.util.Role;
@@ -56,7 +59,6 @@ public class NewUserServlet extends HttpServlet {
 					firstName, lastName, mobilePhone, Role.USER.toString());
 
 			successfulRegistration = userDAO.saveUser(user);
-
 		}
 
 		if (successfulRegistration) {
@@ -64,7 +66,7 @@ public class NewUserServlet extends HttpServlet {
 			Cookie dicturlCookie = new Cookie("dicturl", preferredDict);
 			dicturlCookie.setMaxAge(1000000);
 			response.addCookie(dicturlCookie);
-
+			response.addHeader("X-XSS-Protection", "1; mode=block");
 			response.sendRedirect("searchpage");
 
 		} else {

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+
 import no.hvl.dat152.obl4.database.AppUser;
 import no.hvl.dat152.obl4.database.AppUserDAO;
 import no.hvl.dat152.obl4.util.Role;
@@ -53,6 +55,7 @@ public class LoginServlet extends HttpServlet {
 		}
 
 		if (successfulLogin) {
+			response.addHeader("X-XSS-Protection", "1; mode=block");
 			response.sendRedirect("searchpage");
 
 		} else {
